@@ -20,10 +20,10 @@ function Home() {
   }, []);
   return (
     <div className="App">
-      {listOfPosts.map((value, index) => {
+      {listOfPosts.map((value, key) => {
         return (
           <div
-            key={index}
+            key={key}
             className="post "
             onClick={() => history(`/post/${value.id}`)}
           >
