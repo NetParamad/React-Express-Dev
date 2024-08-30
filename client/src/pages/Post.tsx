@@ -9,9 +9,9 @@ interface Post {
   username: string;
 }
 interface Comment {
-  id: number;
+  id?: number;
   commentBody: string;
-  username: string;
+  username?: string;
 }
 
 function Post() {
@@ -36,9 +36,18 @@ function Post() {
       commentBody: newComment,
       PostId: id,
       
+    }, {
+      headers: {
+        accessToken: sessionStorage.getItem("accessToken")
+      },
     }).then((res) => {
-      // console.log(res.data);
-      setComments([...comments, res.data]);
+        if (res.data.error) {
+          console.log(res.data.error);
+        } else {
+          const commentToAdd = { commentBody: newComment };
+          setComments([...comments, commentToAdd]);
+          setNewComment("");
+        }
     })
   };
 
